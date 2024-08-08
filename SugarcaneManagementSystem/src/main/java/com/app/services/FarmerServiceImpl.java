@@ -53,8 +53,8 @@ public class FarmerServiceImpl implements FarmerService {
 
 		Purchase purchase = mapper.map(purchaseDto, Purchase.class);
 		purchase.setFarmer(farmer);
-		Purchase savedPurchaseDetails = purchaseRepository.save(purchase);
-		return mapper.map(savedPurchaseDetails, PurchaseDto.class);
+		Purchase savedPurchase = purchaseRepository.save(purchase);
+		return mapper.map(savedPurchase, PurchaseDto.class);
 	}
 
 	public List<PurchaseDto> getPurchasesByAadharNumber(String aadharNumber) {

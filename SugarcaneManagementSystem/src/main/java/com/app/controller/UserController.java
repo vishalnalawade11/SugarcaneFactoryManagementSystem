@@ -20,7 +20,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping
+	@PostMapping("/registration")
 	@Operation(description = "Add User")
 	public ResponseEntity<?> addUser(@RequestBody UserDto userDto) {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.registerUser(userDto));
