@@ -15,4 +15,8 @@ public interface FarmerService {
 
 	public List<PurchaseDto> getPurchasesByDate(LocalDate purchaseDate);
 
+	FarmerDto updateFarmer(String aadharNumber, FarmerDto farmerDto);
+
+	void deleteFarmer(String aadharNumber);
+
 }

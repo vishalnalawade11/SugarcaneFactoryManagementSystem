@@ -13,7 +13,8 @@
 	<artifactId>spring_boot_backend_template</artifactId>
 	<version>0.0.1</version>
 	<name>spring_boot_backend_template</name>
-	<description>Sugarcane Management System Project for Spring Boot based Backend </description>
+	<description>Sugarcane Management System Project for Spring Boot based
+		Backend </description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -52,7 +53,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+		<!--
+		https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
@@ -74,8 +76,9 @@
 			<artifactId>commons-lang3</artifactId>
 			<!-- <version>3.14.0</version> -->
 		</dependency>
+
 		<!--  Security dependencies-->
-		
+
 		<!-- <dependency>
     	<groupId>org.springframework.boot</groupId>
     	<artifactId>spring-boot-starter-security</artifactId>
@@ -85,9 +88,8 @@
 		    <artifactId>spring-security-test</artifactId>
 		    <scope>test</scope>
 		</dependency> -->
-		
-	</dependencies>
 
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

@@ -16,4 +16,6 @@ public interface EmployeeService {
 	List<SalaryDto> getAllSalariesByAadharNumber(String aadharNumber);
 
 	EmployeeDto updateEmployee(String aadharNumber, EmployeeDto dto);
+	
+	void deleteEmployee(String aadharNumber);
 }

@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,4 +60,20 @@ public class UserController {
 		List<UserDto> accountants = userService.getUsersByRole(Role.ACCOUNTANT);
 		return ResponseEntity.status(HttpStatus.OK).body(accountants);
 	}
+
+	@PutMapping("/update/{aadharNumber}")
+	@Operation(description = "Update User Details")
+	public ResponseEntity<UserDto> updateUser(@PathVariable String aadharNumber, @RequestBody UserDto userDto) {
+		UserDto updatedUser = userService.updateUser(aadharNumber, userDto);
+		return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
+	}
+
+	@DeleteMapping("/delete/{aadharNumber}")
+	@Operation(description = "Delete User")
+	public ResponseEntity<String> deleteUser(@PathVariable String aadharNumber) {
+		userService.deleteUser(aadharNumber);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT)
+				.body("User with Aadhar number " + aadharNumber + " has been deleted.");
+	}
+
 }

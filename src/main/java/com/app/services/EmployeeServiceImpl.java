@@ -108,4 +108,13 @@ public class EmployeeServiceImpl {
 		Employee updatedEmployee = employeeRepository.save(existingEmployee);
 		return mapper.map(updatedEmployee, EmployeeDto.class);
 	}
+
+	public void deleteEmployee(String aadharNumber) {
+		Employee employee = employeeRepository.findByAadharNumber(aadharNumber);
+		if(employee == null) {
+			throw new AadharNumberNotFound("Employee with Aadhar number " + aadharNumber + " not found.");
+		}
+		
+		employeeRepository.deleteByAadharNumber(aadharNumber);		
+	}
 }

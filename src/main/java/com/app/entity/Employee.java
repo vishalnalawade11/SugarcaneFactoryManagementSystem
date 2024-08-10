@@ -3,6 +3,7 @@ package com.app.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,6 +48,6 @@ public class Employee implements Serializable {
 	@Pattern(regexp = "\\d{12}", message = "Aadhar number must be exactly 12 digits")
 	private String aadharNumber;
 
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Salary> salaryList;
 }

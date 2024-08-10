@@ -9,6 +9,10 @@ import com.app.dto.SalesDto;
 public interface CustomerService {
 	CustomerDto addCustomer(CustomerDto customers);
 
+	CustomerDto updateCustomer(String aadharNo, CustomerDto customerDto);
+
+	void deleteCustomer(String aadharNumber);
+
 	SalesDto addSalesData(SalesDto salesDto);
 
 	List<SalesDto> getSalesByAadharNumber(String aadharNumber);

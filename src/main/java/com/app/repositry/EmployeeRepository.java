@@ -8,4 +8,6 @@ import com.app.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	Employee findByAadharNumber(String aadharNumber);
+
+	void deleteByAadharNumber(String aadharNumber);
 }

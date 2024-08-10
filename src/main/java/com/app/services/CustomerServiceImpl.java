@@ -2,6 +2,7 @@ package com.app.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -86,6 +87,26 @@ public class CustomerServiceImpl implements CustomerService {
 			System.out.println("Mapped DTO: " + dto);
 			return dto;
 		}).collect(Collectors.toList());
+	}
+
+	public CustomerDto updateCustomer(String aadharNumber, CustomerDto customerDto) {
+		Optional<Customer> existingCustomer = Optional.of(customerRepo.findByAadharNumber(aadharNumber));
+		if (!existingCustomer.isPresent()) {
+			throw new AadharNumberNotFound("Customer with ID " + aadharNumber + " not found.");
+		}
+		Customer customer = existingCustomer.get();
+		mapper.map(customerDto, customer);
+		Customer updatedCustomer = customerRepo.save(customer);
+		return mapper.map(updatedCustomer, CustomerDto.class);
+	}
+
+	// Delete a customer
+	public void deleteCustomer(String aadharNumber) {
+		Optional<Customer> existingCustomer = Optional.of(customerRepo.findByAadharNumber(aadharNumber));
+		if (!existingCustomer.isPresent()) {
+			throw new AadharNumberNotFound("Customer with ID " + aadharNumber + " not found.");
+		}
+		customerRepo.deleteByAadharNumber(aadharNumber);
 	}
 
 }

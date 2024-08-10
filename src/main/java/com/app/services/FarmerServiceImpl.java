@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import com.app.repositry.PurchaseRepository;
 import com.app.repositry.UserRepository;
 
 @Service
+@Transactional
 public class FarmerServiceImpl implements FarmerService {
 
 	@Autowired
@@ -71,4 +74,25 @@ public class FarmerServiceImpl implements FarmerService {
 		List<Purchase> purchases = purchaseRepository.findByPurchaseDate(date);
 		return purchases.stream().map(purchase -> mapper.map(purchase, PurchaseDto.class)).collect(Collectors.toList());
 	}
+
+	@Override
+	public FarmerDto updateFarmer(String aadharNumber, FarmerDto farmerDto) {
+		Farmer farmer = farmerRepository.findByAadharNumber(aadharNumber);
+		if(farmer == null) {
+			throw new AadharNumberNotFound("Farmer with aadhar number " + aadharNumber + " not found.");
+		}
+		farmer.setFarmerName(farmerDto.getFarmerName());
+		farmerRepository.save(farmer);
+		return mapper.map(farmer, FarmerDto.class);
+	}
+
+	@Override
+	public void deleteFarmer(String aadharNumber) {
+		// TODO Auto-generated method stub
+		Farmer farmer = farmerRepository.findByAadharNumber(aadharNumber);
+		if(farmer == null) {
+			throw new AadharNumberNotFound("Farmer with aadhar number " + aadharNumber + " not found.");
+		}
+		farmerRepository.deleteByAadharNumber(aadharNumber);
+		}
 }

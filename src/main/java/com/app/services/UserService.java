@@ -11,4 +11,8 @@ public interface UserService {
 	UserDto login(String email, String aadharNumber, String password);
 
 	List<UserDto> getUsersByRole(Role role);
+
+	UserDto updateUser(String aadharNumber, UserDto userDto);
+
+	void deleteUser(String aadharNumber);
 }
