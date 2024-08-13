@@ -22,13 +22,6 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-//	@Bean
-//	public ModelMapper mapper() {
-//		ModelMapper modelMapper = new ModelMapper();
-//		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
-//				.setPropertyCondition(Conditions.isNotNull());
-//		return modelMapper;
-//	}
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -56,5 +49,4 @@ public class Application {
 				.setPropertyCondition(Conditions.isNotNull());
 		return modelMapper;
 	}
-
 }

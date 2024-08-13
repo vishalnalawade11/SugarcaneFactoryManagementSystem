@@ -48,6 +48,9 @@ public class Employee implements Serializable {
 	@Pattern(regexp = "\\d{12}", message = "Aadhar number must be exactly 12 digits")
 	private String aadharNumber;
 
+//	@OneToMany(mappedBy = "employee")
+//	private List<Salary> salaryList;
+	
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Salary> salaryList;
 }

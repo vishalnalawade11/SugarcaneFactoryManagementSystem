@@ -7,5 +7,4 @@ import com.app.entity.Farmer;
 public interface FarmerRepository extends JpaRepository<Farmer, Long> {
 	Farmer findByAadharNumber(String aadharNumber);
 	
-	void deleteByAadharNumber(String aadharNumber);
 }

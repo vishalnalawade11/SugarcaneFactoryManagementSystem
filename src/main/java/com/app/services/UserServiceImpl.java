@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dto.UserDto;
+import com.app.dto.UserUpdateDto;
 import com.app.entity.Role;
 import com.app.entity.User;
 import com.app.exception.InvalidCredentialsException;
@@ -57,9 +58,9 @@ public class UserServiceImpl implements UserService {
 		List<User> users = userRepo.findByRole(role);
 		return users.stream().map(user -> mapper.map(user, UserDto.class)).collect(Collectors.toList());
 	}
-
+	
 	@Override
-	public UserDto updateUser(String aadharNumber, UserDto userDto) {
+	public UserUpdateDto updateUser(String aadharNumber, UserUpdateDto userDto) {
 		// Find the user by Aadhar number
 		User existingUser = userRepo.findByAadharNumber(aadharNumber);
 		if (existingUser == null) {
@@ -70,15 +71,14 @@ public class UserServiceImpl implements UserService {
 		existingUser.setName(userDto.getName());
 		existingUser.setEmail(userDto.getEmail());
 		existingUser.setPassword(userDto.getPassword());
-		existingUser.setRole(userDto.getRole());
 		existingUser.setContactNumber(userDto.getContactNumber());
-		// Update other fields as necessary
+	
 
 		// Save the updated user
 		User updatedUser = userRepo.save(existingUser);
 
 		// Map to DTO and return
-		return mapper.map(updatedUser, UserDto.class);
+		return mapper.map(updatedUser, UserUpdateDto.class);
 	}
 
 	public void deleteUser(String aadharNumber) {
@@ -89,5 +89,13 @@ public class UserServiceImpl implements UserService {
 
 		userRepo.delete(user);
 	}
-
+	//get single user by aadhar number
+	public UserDto getUserByAadharNumber(String aadharNumber) {
+	    User user = userRepo.findByAadharNumber(aadharNumber);
+	    if (user == null) {
+	        throw new UserNotFoundException("User with Aadhar number " + aadharNumber + " not found.");
+	    }
+	    return mapper.map(user, UserDto.class);
+	}
+	
 }

@@ -50,10 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return mapper.map(details, CustomerDto.class);
 	}
 
-	public Customer getEmployeeDetailsByAadharNumber(String aadharNumber) {
-		return customerRepo.findByAadharNumber(aadharNumber);
-	}
-
+	
 	public SalesDto addSalesData(SalesDto salesDto) {
 		Customer customer = customerRepo.findByAadharNumber(salesDto.getAadharNumber());
 		if (customer == null) {
@@ -63,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Sales sales = mapper.map(salesDto, Sales.class);
 		sales.setCustomer(customer);
 
-		System.out.println("Before Saving:" + salesDto.getAadharNumber());
+//		System.out.println("Before Saving:" + salesDto.getAadharNumber());
 
 		Sales savedSales = salesRepo.save(sales);
 		return mapper.map(savedSales, SalesDto.class);
@@ -88,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
 			return dto;
 		}).collect(Collectors.toList());
 	}
-
+	
 	public CustomerDto updateCustomer(String aadharNumber, CustomerDto customerDto) {
 		Optional<Customer> existingCustomer = Optional.of(customerRepo.findByAadharNumber(aadharNumber));
 		if (!existingCustomer.isPresent()) {
@@ -102,11 +99,13 @@ public class CustomerServiceImpl implements CustomerService {
 
 	// Delete a customer
 	public void deleteCustomer(String aadharNumber) {
-		Optional<Customer> existingCustomer = Optional.of(customerRepo.findByAadharNumber(aadharNumber));
-		if (!existingCustomer.isPresent()) {
-			throw new AadharNumberNotFound("Customer with ID " + aadharNumber + " not found.");
+		Customer customer=customerRepo.findByAadharNumber(aadharNumber);
+		if(customer== null)
+		{
+			throw new AadharNumberNotFound("Customer with AadharNumber"+aadharNumber+"Not Found");
+		
 		}
-		customerRepo.deleteByAadharNumber(aadharNumber);
+		customerRepo.delete(customer);
 	}
 
 }

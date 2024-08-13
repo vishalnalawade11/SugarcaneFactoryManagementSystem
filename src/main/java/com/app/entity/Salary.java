@@ -41,7 +41,10 @@ public class Salary {
 	@Column(name = "salary")
 	private Double salary;
 
+	//@ManyToOne
+//	@JoinColumn(name = "employee_aadhar_no", referencedColumnName = "aadhar_no")
+//	private Employee employee;
 	@ManyToOne
-	@JoinColumn(name = "employee_aadhar_no", referencedColumnName = "aadhar_no")
-	private Employee employee;
+    @JoinColumn(name = "employee_id") // This should match the `Employee`'s `id` column
+    private Employee employee;
 }

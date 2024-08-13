@@ -23,7 +23,7 @@ import com.app.repositry.UserRepository;
 
 @Service
 @Transactional
-public class EmployeeServiceImpl {
+public class EmployeeServiceImpl implements EmployeeService{
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -37,7 +37,7 @@ public class EmployeeServiceImpl {
 	@Autowired
 	private ModelMapper mapper;
 
-	public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
+	public EmployeeDto saveEmployeeDetails(EmployeeDto employeeDto) {
 		// Fetch the employee by Aadhar number
 		User employee = userRepository.findByAadharNumber(employeeDto.getAadharNumber());
 		if (employee == null) {
@@ -53,7 +53,7 @@ public class EmployeeServiceImpl {
 		return mapper.map(savedEmp, EmployeeDto.class);
 	}
 
-	public Employee getEmployeeByAadharNumber(String aadharNumber) {
+	public Employee getEmployeeDetailsByAadharNumber(String aadharNumber) {
 		return employeeRepository.findByAadharNumber(aadharNumber);
 	}
 
@@ -86,12 +86,13 @@ public class EmployeeServiceImpl {
 	public List<SalaryDto> getAllSalariesByAadharNumber(String aadharNumber) {
 		Employee employee = employeeRepository.findByAadharNumber(aadharNumber);
 		if (employee == null) {
-			throw new AadharNumberNotFound("Accountant with Aadhar number " + aadharNumber + " does not exist.");
+			throw new AadharNumberNotFound("Employee with Aadhar number " + aadharNumber + " does not exist.");
 		}
 		List<Salary> salaries = salaryRepository.findByEmployee(employee);
 		return salaries.stream().map(salary -> mapper.map(salary, SalaryDto.class)).collect(Collectors.toList());
 	}
 
+	
 	public EmployeeDto updateEmployee(String aadharNumber, EmployeeDto dto) {
 		// Fetch the employee by Aadhar number
 		Employee existingEmployee = employeeRepository.findByAadharNumber(aadharNumber);
@@ -115,6 +116,10 @@ public class EmployeeServiceImpl {
 			throw new AadharNumberNotFound("Employee with Aadhar number " + aadharNumber + " not found.");
 		}
 		
-		employeeRepository.deleteByAadharNumber(aadharNumber);		
+		employeeRepository.delete(employee);		
 	}
+
+
+
+
 }

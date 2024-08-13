@@ -29,7 +29,7 @@ public class EmployeeController {
 	@PostMapping("/add")
 	public ResponseEntity<?> addEmployee(@RequestBody EmployeeDto employeeDto) {
 		try {
-			EmployeeDto savedEmployee = service.saveEmployee(employeeDto);
+			EmployeeDto savedEmployee = service.saveEmployeeDetails(employeeDto);
 			return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee);
 		} catch (AadharNumberNotFound e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -67,13 +67,13 @@ public class EmployeeController {
 		}
 	}
 
-	@DeleteMapping("/delete/{aadharNumber}")
-	public ResponseEntity<?> deleteEmloyee(@PathVariable String aadharNumber) {
-		try {
-			service.deleteEmployee(aadharNumber);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}
-	}
+	 @DeleteMapping("/delete/{aadharNumber}")
+	    public ResponseEntity<?> deleteEmployee(@PathVariable String aadharNumber) {
+	        try {
+	            service.deleteEmployee(aadharNumber);
+	            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	        } catch (AadharNumberNotFound e) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	        }
+	    }
 }

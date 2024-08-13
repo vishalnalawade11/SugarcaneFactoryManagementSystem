@@ -8,6 +8,5 @@ import com.app.entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	Customer findByAadharNumber(String aadharNumber);
-
-	void deleteByAadharNumber(String aadharNumber);
+	
 }
